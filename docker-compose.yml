@@ -1,0 +1,42 @@
+#version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment: 
+      - POSTGRES_PASSWORD=923517471@Jesse
+    container_name: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5433:5433'
+
+
+  app:
+    build:
+      context: .
+      dockerfile: DockerFile
+    container_name: todoapi
+    environment:
+      - PORT=${PORT}
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: nest-pgadmin4
+    environment: 
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=1234
+    ports:
+      - '5050:80'
+
+    depends_on:
+      - db
+

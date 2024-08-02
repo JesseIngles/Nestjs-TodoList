@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "tarefa" ADD COLUMN     "description" TEXT,
+ALTER COLUMN "createdDate" SET DEFAULT CURRENT_TIMESTAMP,
+ALTER COLUMN "done" SET DEFAULT false;
